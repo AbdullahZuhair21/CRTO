@@ -71,4 +71,9 @@ we will see that a new port is opened and waiting for a connection
 
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/8367e11b-00ff-465e-856c-2484af56905f)
 
-4. 
+here we just connected to ourselves in terms of understanding only
+
+### Pivot Listener
+
+
+### Running as a service
