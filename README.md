@@ -46,6 +46,7 @@
 
 ### Generating Payloads
 - in gress payload you will directly interact with the beacon
+
   .    duble click on the payload and you will get a beacon
 
   ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/1a8f88bb-1011-48da-9572-d5843562a2a1)
@@ -55,6 +56,4 @@
 - in Peer2Peer
 .    check if port 4444 is opened in powershell `netstat -anop tcp | findstr 4444`
 .    use `connect` command for TCP
-
-  
 .    use 'link' command for SMB
