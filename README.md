@@ -34,5 +34,12 @@
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/4808fd11-337e-41f8-8f01-3b8775805abd)
 
 5. TCP
+.    you may specify whether it will bind to only the localhost (127.0.0.1), otherwise, it will bind to all interfaces (0.0.0.0).
 
-6. 
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/e314926e-c8d7-4dba-85f8-ebd5fde25318)
+
+7. Below are the full listeners that we are going to use
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/ffb3df80-72bd-44a8-b099-d0a52774bd51)
+
+7. 
