@@ -1,7 +1,7 @@
 # CRTO
 # COMMAND & CONTROL
 ### Starting and connecting to the Team Server
-1. run `team server SSH` > type `tmux` in the terminal > cd cobaltstrike > sudo ./teamserver <IP_Attacker> <Password> c2-profiles/normal/webbug.profile
+1. run `team server SSH` > type `tmux` in the terminal > cd cobaltstrike > `sudo ./teamserver <IP_Attacker> <Password> c2-profiles/normal/webbug.profile`
 
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/c857de3c-ea19-40da-8247-73bcf9309cb7)
 
