@@ -55,5 +55,7 @@
 
 - in Peer2Peer
 .    check if port 4444 is opened in powershell `netstat -anop tcp | findstr 4444`
+  
 .    use `connect` command for TCP
+
 .    use 'link' command for SMB
