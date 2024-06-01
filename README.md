@@ -29,7 +29,7 @@
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/fb4b98c6-093c-4adb-a4d5-67d8db8c07a6)
 
 3. SMB listener
-.    beacon SMB payload will start a new named pipe server but the default pipe name is quite well signatured. instead, use the following command `ls \\.\pipe` take any pipe name and rename the last 4 letters to make it unique
+.    beacon SMB payload will start a new named pipe server but the default pipe name is quite well signatured by EDRs. instead, use the following command `ls \\.\pipe` take any pipe name and rename the last 4 letters to make it unique
 
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/4808fd11-337e-41f8-8f01-3b8775805abd)
 
