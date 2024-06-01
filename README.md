@@ -6,6 +6,7 @@
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/c857de3c-ea19-40da-8247-73bcf9309cb7)
 
 2. launch the client
+
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/2127a7ea-a1e9-4f71-82de-eb764dc8ea30)
 
 3. make sure that both of the fingerprint hashes are the same
