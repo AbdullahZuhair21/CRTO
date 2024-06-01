@@ -47,15 +47,28 @@
 ### Generating Payloads
 - in gress payload you will directly interact with the beacon
 
-  .    duble click on the payload and you will get a beacon
+1. duble click on the payload and you will get a beacon
 
   ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/1a8f88bb-1011-48da-9572-d5843562a2a1)
 
   ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/ad1eda16-6efc-444f-8258-4e2c6bfce176)
 
-- in Peer2Peer
-.    check if port 4444 is opened in powershell `netstat -anop tcp | findstr 4444`
-  
-.    use `connect` command for TCP
+- in Peer2Peer use `connect` command for TCP; use 'link' command for SMB
 
-.    use 'link' command for SMB
+1. run tcp-local payload 
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/a21c97d3-3cf6-4ed8-a8da-2cdf054649b3)
+
+2. check if port 4444 is opened in powershell `netstat -anop tcp | findstr 4444`
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/c16283c0-9272-4471-8e97-3695017ba286)
+
+we will see that a new port is opened and waiting for a connection
+
+3. connect to tcp beacon using `connect localhost 4444`
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/47913fc7-e260-420e-928e-2eb0dd57e55f)
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/8367e11b-00ff-465e-856c-2484af56905f)
+
+4. 
