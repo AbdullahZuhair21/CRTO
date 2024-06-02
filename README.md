@@ -281,6 +281,7 @@ Sub AutoOpen()
 End Sub
 ```
 2. we need to replace notepad with a Beacon payload. go to Attacks > Scripted Web Delivery and generate a 64-bit PowerShell payload. The URI path can be anything, but I will keep it as /a.
+
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/f6b68db3-6d55-4422-8e90-79bbf1fe02c6)
 
 This will generate a PowerShell payload and host it on the team server so that it can be downloaded over HTTP and executed in-memory.  After clicking Launch, Cobalt Strike will generate the PowerShell one-liner that will do just that.
