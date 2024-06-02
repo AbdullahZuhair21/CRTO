@@ -221,7 +221,7 @@ This will return pages indexed on apple.com excluding the www and support domain
 
 # Initial Compromise
 ### Password Spraying
--    Methodology: `Enum NetBIOS of the Domain` > `Find usernames` > `` > `` >
+-    Methodology: `Enum NetBIOS of the Domain` > `Find usernames` > `find possible usernames` > `usernames validation` > `perform the attack`
 1. [MailSniper](https://github.com/dafthack/MailSniper) is an excellent tool for password spraying against Offce 365. On the Attacker Desktop VM, open PowerShell and import MailSniper.ps1.
 ```
 PS C:\Users\Attacker> ipmo C:\Tools\MailSniper\MailSniper.ps1
