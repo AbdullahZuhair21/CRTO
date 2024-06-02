@@ -74,6 +74,17 @@ we will see that a new port is opened and waiting for a connection
 here we just connected to ourselves in terms of understanding only
 
 ### Pivot Listener
+1. To create a pivot listener, right-click on a Beacon and select `Pivoting` > `Listener`. This will open a new listener window
 
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/7048e894-648e-4455-aa79-54b516b784ff)
 
+2. after clicking save, `run netstat -anop tcp` to see your port is listening
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/6a2a527b-0705-48d7-a379-86708943f1e6)
+
+3. We can now generate payloads for this listener, and it also becomes available in all the usual commands such as `spawn`, `elevate`, and `jump`, etc.  Once executed, the reverse TCP Beacon will appear immediately in the UI and the arrow in the graph view shows the direction of the connection.
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/ed2894b1-2f1e-4d94-b0d6-4ce03e8977bd)
+
+4. 
 ### Running as a service
