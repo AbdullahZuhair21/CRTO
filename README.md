@@ -76,6 +76,8 @@ here we just connected to ourselves in terms of understanding only
 ### Pivot Listener
 1. To create a pivot listener, right-click on a Beacon and select `Pivoting` > `Listener`. This will open a new listener window
 
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/58cd9bd4-0d90-4014-8ff3-64dd2100546d)
+
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/7048e894-648e-4455-aa79-54b516b784ff)
 
 2. after clicking save, `run netstat -anop tcp` to see your port is listening
