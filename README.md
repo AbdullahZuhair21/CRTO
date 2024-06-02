@@ -1,4 +1,7 @@
 # CRTO
+
+
+
 # COMMAND & CONTROL
 ### Starting and connecting to the Team Server
 1. run `team server SSH` > type `tmux` in the terminal > cd cobaltstrike > `sudo ./teamserver <IP_Attacker> <Password> c2-profiles/normal/webbug.profile`
@@ -84,9 +87,125 @@ here we just connected to ourselves in terms of understanding only
 
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/6a2a527b-0705-48d7-a379-86708943f1e6)
 
-3. We can now generate payloads for this listener, and it also becomes available in all the usual commands such as `spawn`, `elevate`, and `jump`, etc.  Once executed, the reverse TCP Beacon will appear immediately in the UI and the arrow in the graph view shows the direction of the connection.
+3. We can now generate payloads for this listener, `Payloads` > `windows Stageless Payload`.
 
-![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/ed2894b1-2f1e-4d94-b0d6-4ce03e8977bd)
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/4d6577c7-07c2-4922-b9c7-a675a3188da1)
 
-4. 
+choose the pivot listener and generate the payload and save it in Payloads folder
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/532aadf2-5b22-4452-8ee0-01ce88627e97)
+
+4. run the payload, and you will get a new beacon
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/4322c4ec-5cc7-498c-bb34-2bed1812b99b)
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/aa29e7be-72cd-4981-b172-6d5c0d5879a2)
+
+5. check `spawn`, `elevate`, and `jump` commands.
+
 ### Running as a service
+1. create a `teamserver.service`file in `/etc/systemd/system`
+```
+attacker@ubuntu ~> sudo nano /etc/systemd/system/teamserver.service
+```
+2. paste the following content
+```
+[Unit]
+Description=Cobalt Strike Team Server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+WorkingDirectory=/home/attacker/cobaltstrike
+ExecStart=/home/attacker/cobaltstrike/teamserver 10.10.5.50 Passw0rd! c2-profiles/normal/webbug.profile
+
+[Install]
+WantedBy=multi-user.target
+```
+3. Next, reload the systemd manager and check the status of the service.  It will be inactive/dead.
+```
+attacker@ubuntu ~> sudo systemctl daemon-reload
+attacker@ubuntu ~> sudo systemctl status teamserver.service
+```
+4. Start the service and check its status again.
+```
+attacker@ubuntu ~> sudo systemctl start teamserver.service
+attacker@ubuntu ~> sudo systemctl status teamserver.service
+```
+5. Start the service on bootup.
+```
+attacker@ubuntu ~> sudo systemctl enable teamserver.service
+```
+
+
+
+# External Reconnaissance
+### DNS Records
+1. Performing DNS lookup of any `A` records for the domain
+```
+dig cyberbotic.io
+```
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/e31d41b8-b830-44cd-af8b-68c029d0c2f5)
+
+2. Performing a `whois` on each public IP address can show who it belongs to. We can see that it resolves to a 3rd party provider, Cloudflare.
+```
+whois 172.67.205.143
+```
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/6f8687e5-a382-4629-ab08-191490bcf0fd)
+
+3. brute force subdomain using `dnscan`
+```
+./dnscan.py -d cyberbotic.io -w subdomains-100.txt
+```
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/f6f451a0-a062-4a03-90e5-9509532238b4)
+
+From the output above, we've discovered www and mail subdomains. if you notice that mail resolves to an internal address rather than a public address
+
+4. (Spoofy)[https://github.com/MattKeeley/Spoofy] is a Python tool that can verify the email security of a given domain.
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/06f308e6-72b1-4a1b-b29d-4cf7acdec0ae)
+
+#### Google Dorks
+
+
+
+
+### Social Media
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
