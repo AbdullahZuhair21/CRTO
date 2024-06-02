@@ -298,9 +298,9 @@ To prepare the document for delivery, go to `File` > `Info` > `Inspect Document`
 
 Next, go to `File` > `Save As` and save it to `C:\Payloads`.  Give it any filename, but in the Save as type dropdown, change the format from .docx to Word 97-2003 (.doc).
 
-We then want to upload this file to the team server as well.  Go to `Site Management` > `Host File` and select your document.
+Go to `Site Management` > `Host File` you will see your powershell payload hosted on team server.
 
-![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/f2e55cb7-168b-4062-a727-09ea3899c169)
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/9c4b7525-0448-4425-99ad-cfcb29d54576)
 
 4. send an email and attach your Word document. open the document and enable macros, then you will get a shell
 
