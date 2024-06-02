@@ -165,13 +165,57 @@ whois 172.67.205.143
 
 From the output above, we've discovered www and mail subdomains. if you notice that mail resolves to an internal address rather than a public address
 
-4. (Spoofy)[https://github.com/MattKeeley/Spoofy] is a Python tool that can verify the email security of a given domain.
+4. [Spoofy](https://github.com/MattKeeley/Spoofy) is a Python tool that can verify the email security of a given domain.
 
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/06f308e6-72b1-4a1b-b29d-4cf7acdec0ae)
 
 #### Google Dorks
+1. site:  Limit the search results to those from a specific website.
+site:apple.com
+
+Not so useful by itself but will return every page that Google has indexed for the apple.com domain.
 
 
+
+2. intitle:  Find pages with a certain word in the title.
+intitle:apple
+
+This will return every page that contains the word "apple" in the title.
+
+
+
+3. inurl:  Find pages with a certain word in the URL.
+inurl:apple
+
+This will return every page where "apple" appears in the URL.
+
+
+
+4. intext:  Find pages containing a certain word (or words) somewhere in the content.
+intext:apple
+
+This will return every page where "apple" appears in the body text.
+
+
+
+5. filetype:  Search for filetypes that Google understands.
+site:apple.com filetype:pdf
+
+This will return all PDFs on apple.com.  Other filetypes such as docx, pptx and xlsx also work.  This could be combined with intitle:report to find all PDFs that have "report" in the name.  Google does not understand all filetypes, so inurl could be used instead.
+
+
+
+6. #..#:  Search for a range of numbers.
+site:apple.com filetype:pdf 2020..2022
+
+This will return all PDFs on apple.com which contain the numbers 2020, 2021 and 2022.  Useful for finding information constrained to a given timeframe.
+
+
+
+7. Exclude a phrase.
+site:apple.com -www -support
+
+This will return pages indexed on apple.com excluding the www and support domains.  Useful for finding other subdomains.
 
 
 ### Social Media
