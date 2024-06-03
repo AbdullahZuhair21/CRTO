@@ -17,8 +17,9 @@
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/64c9d4e8-7bd4-4a46-9e30-ffa0efae2ed9)
 
 ### Listerner Management
-.    Gress Listener uses HTTP/S & DNS; Peer2Peer users SMB & raw TCP
-.    use `sudo ss -lntp` to check the listing ports
+- Gress Listener uses HTTP/S & DNS; Peer2Peer users SMB & raw TCP
+- use `sudo ss -lntp` to check the listing ports
+- agrees > from the payload we will connect to the attacker machine; p2p > when you run the payload, you will open a port in the victim machine and then from the attacker (beacon) you will connect to the opened port
 1. http listener
 
 ![image](https://github.com/AbdullahZuhair21/CRTO/assets/154827329/4cc00aae-bcc2-4344-a678-a14075a29dd2)
