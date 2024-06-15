@@ -274,7 +274,12 @@ http-stager {
         - `link [host] [pipe]`
     - Delink a Beacon peer
         - `unlink [host] [pipe]`
-    
+
+- Setting up Pivot Listener
+    - Error Code 2 means File Not Found.
+    - Error Code 5 means Access is Denied
+    - Error Code 53 means Bad Netpath
+      
 - Setting up Pivot Listener
     - Beacon_reverse_tcp and Beacon_Bind_Tcp both are different type of Listeners.
     - Pivot Listeners can only be created from a beacon.
